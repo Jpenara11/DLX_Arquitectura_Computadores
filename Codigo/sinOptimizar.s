@@ -1,7 +1,9 @@
 ; Jaime De La Peña Ramos
 ; Javier Servate Hernández
 
+            ; Declaraciones
             .data
+
 ; Datos iniciales base
 
 A:			.float		1.500000,	2.750000,	3.257000
@@ -22,17 +24,38 @@ M: 			.float		0.0,0.0,0.0
 			.float		0.0,0.0,0.0
 			.float		0.0,0.0,0.0
 
-uno:		.float 		1
-cero:		.float 		0
-menosuno:	.float		-1
-
-
+uno:		.byte 		1
 			.text
-; Codigo de las operaciones
 
+            ; Codigo de las operaciones
 			.global main
+
 main:
-			
-			; Poner aqui todo el codigo
+
+;Cargamos los datos
+            lf  f0,A
+            lf  f1,A+4
+            lf  f2,A+8
+            lf  f3,A+12
+            lf  f4,A+16
+            lf  f5,A+20
+
+            lf  f6,B
+            lf  f7,B+4
+            lf  f8,B+8
+            lf  f9,B+12
+            lf  f10,B+16
+            lf  f11,B+20
+
+            lf  f12,C
+            lf  f13,C+4
+            lf  f14,C+8
+            lf  f15,C+12
+            lf  f16,C+16
+            lf  f17,C+20
+
+            lf  f18,alpha
+
+            lb  r1,uno
 
 end:		trap 0
