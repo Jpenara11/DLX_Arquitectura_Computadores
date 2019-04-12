@@ -39,23 +39,37 @@ main:
             lf  f3,A+12
             lf  f4,A+16
             lf  f5,A+20
+            lf  f6,A+24
+            lf  f7,A+28
+            lf  f8,A+32
 
-            lf  f6,B
-            lf  f7,B+4
-            lf  f8,B+8
-            lf  f9,B+12
-            lf  f10,B+16
-            lf  f11,B+20
-
-            lf  f12,C
-            lf  f13,C+4
-            lf  f14,C+8
-            lf  f15,C+12
-            lf  f16,C+16
-            lf  f17,C+20
-
-            lf  f18,alpha
+            lf  f9,B
+            lf  f10,B+4
+            lf  f11,B+8
+            lf  f12,B+12
+            lf  f13,B+16
+            lf  f14,B+20
+            lf  f15,B+24
+            lf  f16,B+28
+            lf  f17,B+32 
 
             lb  r1,uno
+
+            ;A + B -> Fila 1
+            addf f18, f0, f9
+            addf f19, f1, f10
+            addf f20, f2, f11
+
+            ;A + B -> Fila 2
+            addf f21, f3, f12
+            addf f22, f4, f13
+            addf f23, f5, f14
+
+            ;A + B -> Fila 3
+            addf f24, f6, f15
+            addf f25, f7, f16
+            addf f26, f8, f17
+
+
 
 end:		trap 0
