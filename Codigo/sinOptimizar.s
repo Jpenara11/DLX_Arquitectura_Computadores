@@ -20,9 +20,9 @@ C:			.float		15.000000,	17.000000,	14.000000
 
 Alpha: 		.float		1.235
 
-M: 			.float		0.0,0.0,0.0
-			.float		0.0,0.0,0.0
-			.float		0.0,0.0,0.0
+M: 			.float		0.0,  0.0,   0.0
+			.float		0.0,  0.0,   0.0
+			.float		0.0,  0.0,   0.0
 
 unoInt:		.byte 		1
 			.text
@@ -105,6 +105,7 @@ main:
             addf f30, f30, f31
 
             ;Division 1 entre determinante
+            bfpt end ;Comprobamos si el determinante es 0
             lf   f31,unoFloat
             divf f31, f31, f30
 
@@ -226,5 +227,16 @@ main:
             addf f6, f6, f24
             addf f7, f7, f25
             addf f8, f8, f26
+
+            ;Cargamos en M y almacenamos en el la suma de las matrices Resultantes
+            sf M, f0
+            sf M+4, f1
+            sf M+8, f1
+            sf M+12, f1
+            sf M+16, f1
+            sf M+20, f1
+            sf M+24, f1
+            sf M+28, f1
+            sf M+32, f1
 
 end:		trap 0
