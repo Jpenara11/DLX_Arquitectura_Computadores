@@ -18,7 +18,7 @@ C:          .float      15.000000,  17.000000,  14.000000
             .float      17.000000,  15.000000,  17.000000
             .float      14.000000,  17.000000,  15.000000
 
-Alpha:      .float      1.235
+Alfa:      .float      1.235
 
 M:          .float      0.0,  0.0,   0.0
             .float      0.0,  0.0,   0.0
@@ -190,10 +190,10 @@ main:
             lf  f7,C+28
             lf  f8,C+32
 
-            ;Cargar Alpha
-            lf  f9,Alpha
+            ;Cargar Alfa
+            lf  f9,Alfa
 
-            ;Multiplicar C por Alpha
+            ;Multiplicar C por Alfa
             multf f0, f0, f9
             multf f1, f1, f9
             multf f2, f2, f9
