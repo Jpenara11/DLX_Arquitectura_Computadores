@@ -24,7 +24,6 @@ M: 			.float		0.0,  0.0,   0.0
 			.float		0.0,  0.0,   0.0
 			.float		0.0,  0.0,   0.0
 
-unoInt:		.byte 		1
 			.text
 
 cero:       .float       0.0
@@ -55,9 +54,6 @@ main:
             lf  f15,B+24
             lf  f16,B+28
             lf  f17,B+32 
-
-            lb  r1,unoInt
-            lf  f31,cero
 
             ;A + B -> Fila 1
             addf f18, f0, f9
@@ -105,7 +101,9 @@ main:
             addf f30, f30, f31
 
             ;Division 1 entre determinante
-            bfpt end ;Comprobamos si el determinante es 0
+            lf f31, cero ; Anadimos en el registro el cero para realizar comprobacion
+            eqf f30, f31 ; Comprobamos si el determinante es 0
+            bfpt end ; Finalizamos el programa si el determinante es 0
             lf   f31,unoFloat
             divf f31, f31, f30
 
