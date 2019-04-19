@@ -34,7 +34,7 @@ unoFloat:   .float       1.0
 
 main:
 
-;Cargamos los datos
+;Cargamos las matrices
             lf  f0,A
             lf  f1,A+4
             lf  f2,A+8
