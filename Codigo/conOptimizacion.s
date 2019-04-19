@@ -24,10 +24,10 @@ M:          .float      0.0,  0.0,   0.0
             .float      0.0,  0.0,   0.0
             .float      0.0,  0.0,   0.0
 
-            .text
-
 cero:       .float       0.0
 unoFloat:   .float       1.0
+
+            .text
 
             ; Codigo de las operaciones
             .global main
