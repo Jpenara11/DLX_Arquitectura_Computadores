@@ -126,84 +126,97 @@ main:
             multf f21, f3, f9
             multf f22, f4, f12
             multf f23, f5, f15
-            multf f24, f3, f10
-            multf f25, f4, f13
             addf f21, f21, f22
-            addf f22, f24, f25
-            multf f26, f5, f16
+
+            multf f24, f3, f10
             addf f21, f21, f23
-            multf f27, f3, f11
-            addf f22, f22, f26
+            multf f25, f4, f13
+            multf f26, f5, f16
+            addf f22, f24, f25
+            
+            
             multf f28, f4, f14
             multf f29, f5, f17
-            addf f23, f27, f28
+            multf f27, f3, f11
+            addf f22, f22, f26
             addf f23, f23, f29
+            addf f23, f27, f28
+            
 
             ;Multiplicacion A por B TERCERA FILA
+
             multf f24, f6, f9
             multf f25, f7, f12
             multf f26, f8, f15
-            multf f27, f6, f10
-            multf f28, f7, f13
             addf f24, f24, f25
+
+            multf f27, f6, f10
             addf f24, f24, f26
+            multf f28, f7, f13
             multf f29, f8, f16
             addf f25, f27, f28
+
             multf f30, f6, f11
-            addf f25, f25, f29
-            multf f0, f7, f14
             multf f1, f8, f17
-            addf f26, f30, f0
-            addf f26, f26, f1
+            multf f0, f7, f14
+            addf f26, f30, f1
+            addf f25, f25, f29
+            addf f26, f26, f0
+            
 
             ;Multiplicacion de AxB por 1/Det[A+b]
             multf f18, f18, f31
             lf  f0,C
-            lf  f1,C+4
-            lf  f2,C+8
-            lf  f3,C+12
-            lf  f4,C+16
             multf f19, f19, f31
+            lf  f1,C+4
+            multf f20, f20, f31
+            lf  f2,C+8
+            multf f21, f21, f31
+            lf  f3,C+12
+            multf f22, f22, f31
+            lf  f4,C+16
+            multf f23, f23, f31
             lf  f5,C+20
+            multf f24, f24, f31
             lf  f6,C+24
+            multf f25, f25, f31
+            lf  f9,Alfa
+            multf f26, f26, f31
             lf  f7,C+28
             lf  f8,C+32
-            multf f20, f20, f31
-            lf  f9,Alfa
-            multf f21, f21, f31
-            multf f22, f22, f31
-            multf f23, f23, f31
-            multf f24, f24, f31
-            multf f25, f25, f31
-            multf f26, f26, f31
-
+            
             ;Multiplicar C por Alfa
             multf f0, f0, f9
             multf f1, f1, f9
             addf f0, f0, f18
-            sf M, f0
             multf f2, f2, f9
             addf f1, f1, f19
-            sf M+4, f1
-            sf M+8, f1
-            sf M+12, f1
-            sf M+16, f1
+            sf M, f0
+            
             multf f3, f3, f9
             addf f2, f2, f20
-            sf M+20, f1
-            sf M+24, f1
-            sf M+28, f1
-            sf M+32, f1
+            sf M+4, f1
             multf f4, f4, f9
             addf f3, f3, f21
+            sf M+8, f2
+
             multf f5, f5, f9
             addf f4, f4, f22
+            sf M+12, f3
             multf f6, f6, f9
             addf f5, f5, f23
+            sf M+16, f4
+            
             multf f7, f7, f9
             addf f6, f6, f24
             multf f8, f8, f9
+            
+            
             addf f7, f7, f25
+            sf M+20, f5
+            sf M+24, f6
             addf f8, f8, f26
+            sf M+28, f7
+            sf M+32, f8
 
 end:        trap 0

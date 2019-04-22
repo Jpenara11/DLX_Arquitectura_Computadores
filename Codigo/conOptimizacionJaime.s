@@ -71,35 +71,28 @@ main:
             multf f29, f21, f25
             lf  f2,A+8
             lf  f11,B+8
-            addf f20, f2, f11
-            addf f30, f27, f28         
+            addf f30, f27, f28
+            addf f20, f2, f11         
             
             ;MEJORAR DESDE AQUI
             
-            multf f29, f29, f20 
-            addf f30, f30, f29
-
-
-            multf f27, f20, f22
-            multf f29, f23, f25
             multf f28, f19, f21
-            multf f29, f29, f18
-            
-            multf f27, f27, f24
-            subf f31, f31, f29
+            multf f29, f29, f20 
             multf f28, f28, f26
+            multf f27, f20, f22
+            addf f30, f30, f29
+            multf f29, f23, f25
+            multf f27, f27, f24
+            multf f29, f29, f18
+            subf f30, f30, f27
+            subf f30, f30, f28
 
+            lf f20, cero; Cargamos en el registro 20 el 0 para realizar la comprobacion
 
-            subf f31, f31, f27
-            
-            subf f31, f31, f28
-            
-            
+            subf f31, f31, f29
             addf f30, f30, f31
 
             ;Division 1 entre determinante
-
-            lf f20, cero; Cargamos en el registro 20 el 0 para realizar la comprobacion
 
             lf   f22,unoFloat
             
@@ -118,14 +111,14 @@ main:
             addf f18, f18, f20
             multf f22, f1, f13
             multf f23, f2, f16
-            addf f19, f21, f22
+            
 
             multf f24, f0, f11
-            addf f19, f19, f23
             multf f25, f1, f14
             multf f26, f2, f17
+            addf f19, f19, f23
             addf f20, f24, f25
-            
+            addf f19, f21, f22
             addf f20, f20, f26
 
             ;Multiplicacion A por B SEGUNDA FILA

@@ -229,12 +229,12 @@ main:
             ;Cargamos en M y almacenamos en el la suma de las matrices Resultantes
             sf M, f0
             sf M+4, f1
-            sf M+8, f1
-            sf M+12, f1
-            sf M+16, f1
-            sf M+20, f1
-            sf M+24, f1
-            sf M+28, f1
-            sf M+32, f1
+            sf M+8, f2
+            sf M+12, f3
+            sf M+16, f4
+            sf M+20, f5
+            sf M+24, f6
+            sf M+28, f7
+            sf M+32, f8
 
 end:		trap 0
