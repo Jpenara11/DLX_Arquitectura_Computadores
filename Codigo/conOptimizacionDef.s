@@ -41,8 +41,8 @@ main:
             lf  f4,A+16
             lf  f13,B+16
             addf f18, f0, f9
-            addf f22, f4, f13
             lf  f1,A+4
+            addf f22, f4, f13
             lf  f10,B+4
             multf f27, f18, f22
             
@@ -52,8 +52,8 @@ main:
             lf  f3,A+12
             lf  f12,B+12
             addf f19, f1, f10
-            addf f23, f5, f14
             lf  f7,A+28
+            addf f23, f5, f14
             lf  f16,B+28
             multf f28, f19, f23
 
@@ -65,15 +65,15 @@ main:
             lf  f15,B+24
             multf f27, f27, f26
             addf f21, f3, f12
+            lf  f2,A+8
             addf f24, f6, f15
+            lf  f11,B+8
             addf f25, f7, f16
             multf f28, f28, f24
+            addf f20, f2, f11
             multf f29, f21, f25
-            lf  f2,A+8
-            lf  f11,B+8
             addf f30, f27, f28
-            addf f20, f2, f11         
-            
+
             ;MEJORAR DESDE AQUI
             
             multf f28, f19, f21
@@ -214,8 +214,8 @@ main:
             addf f7, f7, f25
             sf M+20, f5
             sf M+24, f6
-            addf f8, f8, f26
             sf M+28, f7
+            addf f8, f8, f26
             sf M+32, f8
 
 end:        trap 0
