@@ -83,8 +83,8 @@ main:
             addf f30, f30, f29
             multf f29, f23, f25
             multf f27, f27, f24
-            multf f29, f29, f18
             subf f30, f30, f27
+            multf f29, f29, f18
             subf f30, f30, f28
 
             lf f20, cero; Cargamos en el registro 20 el 0 para realizar la comprobacion
