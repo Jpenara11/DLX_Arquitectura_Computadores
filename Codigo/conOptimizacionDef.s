@@ -112,13 +112,12 @@ main:
             multf f22, f1, f13
             multf f23, f2, f16
             
-
-            multf f24, f0, f11
-            multf f25, f1, f14
-            multf f26, f2, f17
             addf f19, f19, f23
-            addf f20, f24, f25
+            multf f24, f0, f11
             addf f19, f21, f22
+            multf f25, f1, f14
+            addf f20, f24, f25
+            multf f26, f2, f17
             addf f20, f20, f26
 
             ;Multiplicacion A por B SEGUNDA FILA
@@ -135,12 +134,12 @@ main:
             
             
             multf f28, f4, f14
-            multf f29, f5, f17
-            multf f27, f3, f11
             addf f22, f22, f26
+            multf f29, f5, f17
             addf f23, f23, f29
+            multf f27, f3, f11
             addf f23, f27, f28
-            
+
 
             ;Multiplicacion A por B TERCERA FILA
 
@@ -157,9 +156,9 @@ main:
 
             multf f30, f6, f11
             multf f1, f8, f17
+            addf f25, f25, f29
             multf f0, f7, f14
             addf f26, f30, f1
-            addf f25, f25, f29
             addf f26, f26, f0
             
 
