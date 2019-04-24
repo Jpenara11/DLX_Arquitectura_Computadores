@@ -85,8 +85,6 @@ main:
             lf f30, cero ; Cargar el 0
             lf f31, unoFloat; Cargar el 1
 
-            multf f18, f0, f9 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
-
             addf f26, f26, f20 ; (PRIMER MENOR - SEGUNDO MENOR) + TERCER MENOR
 
 
@@ -96,14 +94,14 @@ main:
             eqf f26, f30 ; Comprobamos si el determinante es 0
             bfpt end ; Finalizamos el programa si el determinante es 0
             
-            multf f19, f1, f12 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
-
-            divf f31, f31, f26 ; Division 1 / det A + B
+            divf f31, f31, f26
             
-            ; OPERACIONES DE MULTIPLICACION A X B
-            
+            ;Multiplicacion A por B PRIMERA FILA
+            multf f18, f0, f9
+            multf f19, f1, f12
             multf f20, f2, f15
             addf f18, f18, f19
+
             multf f21, f0, f10
             addf f18, f18, f20
             multf f22, f1, f13
@@ -215,4 +213,4 @@ main:
             addf f8, f8, f26
             sf M+32, f8
 
-end:        trap 0     
+end:        trap 0
