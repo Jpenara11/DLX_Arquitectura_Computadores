@@ -1,40 +1,42 @@
-; Jaime De La Peña Ramos
-; Javier Servate Hernández
+; Jaime De La Peña Ramos / DNI: 70921486C
+; Javier Servate Hernández / DNI: 70939705T
 
-            ; Declaraciones
+; Declaraciones
             .data
 
 ; Datos iniciales base
 
-A:			.float		1.500000,	2.750000,	3.257000
-			.float		21.002000,	2.658000,	2.157000
-			.float		56.251000,	3.154000,	3.255000
+A:		.float	1.500000,	2.750000,	3.257000
+		.float	21.002000,	2.658000,	2.157000
+		.float	56.251000,	3.154000,	3.255000
 
-B:			.float		3.500000,	3.500000,	2.500000
-			.float		4.500000,	4.500000,	6.500000
-			.float		5.500000,	1.500000,	2.500000
+B:		.float	3.500000,	3.500000,	2.500000
+		.float	4.500000,	4.500000,	6.500000
+		.float	5.500000,	1.500000,	2.500000
 
-C:			.float		15.000000,	17.000000,	14.000000
-			.float		17.000000,	15.000000,	17.000000
-			.float		14.000000,	17.000000,	15.000000
+C:		.float	15.000000,	17.000000,	14.000000
+		.float	17.000000,	15.000000,	17.000000
+		.float	14.000000,	17.000000,	15.000000
 
-Alfa: 		.float		1.235
+Alfa: 	.float	1.235
 
-M: 			.float		0.0,  0.0,   0.0
-			.float		0.0,  0.0,   0.0
-			.float		0.0,  0.0,   0.0
+M: 		.float	0.0,  0.0,   0.0
+		.float	0.0,  0.0,   0.0
+		.float	0.0,  0.0,   0.0
 
-cero:       .float       0.0
-unoFloat:   .float       1.0
+cero:       .float      0.0
+unoFloat:   .float      1.0
 
-                  .text
+            .text
 
-            ; Codigo de las operaciones
-			.global main
+; Codigo de las operaciones
+
+		.global main
 
 main:
 
-;Cargamos las matrices
+;PASO 1: CARGA DE LAS MATRICES A Y B
+
             lf  f0,A
             lf  f1,A+4
             lf  f2,A+8
@@ -55,6 +57,8 @@ main:
             lf  f16,B+28
             lf  f17,B+32 
 
+;PASO 2: SUMA DE LAS MATRICES A Y B -> A + B
+
             ;A + B -> Fila 1
             addf f18, f0, f9
             addf f19, f1, f10
@@ -70,7 +74,10 @@ main:
             addf f25, f7, f16
             addf f26, f8, f17
 
-            ;Calculo primera parte determinante
+;PASO 3: CÁLCULO DEL DETERMINANTE DE A + B MEDIANTE SARRUS -> |A + B|
+
+            ;CÁLCULO DE LA PRIMERA PARTE DEL DETERMINANTE
+
             multf f27, f18, f22
             multf f27, f27, f26
 
@@ -83,7 +90,8 @@ main:
             addf f30, f27, f28
             addf f30, f30, f29
 
-            ;Calculo segunda parte determinante
+            ;CÁLCULO DE LA SEGUNDA PARTE DEL DETERMINANTE
+
             multf f27, f20, f22
             multf f27, f27, f24
 
@@ -97,17 +105,26 @@ main:
             subf f31, f31, f28
             subf f31, f31, f29
 
-            ;Calculo determinante
+            ;CÁLCULO DE LA TERCERA PARTE DEL DETERMINANTE
+
             addf f30, f30, f31
 
-            ;Division 1 entre determinante
+;PASO 4: DIVISIÓN DE 1 / |A + B|, SI ES CERO EL DETERMINANTE SE TERMINA, SINO CONTINÚA
+
             lf f31, cero ; Anadimos en el registro el cero para realizar comprobacion
+
             eqf f30, f31 ; Comprobamos si el determinante es 0
+
             bfpt end ; Finalizamos el programa si el determinante es 0
+
             lf   f31,unoFloat
+            
             divf f31, f31, f30
 
-            ;Multiplicacion A por B PRIMERA FILA
+;PASO 5: MULTIPLICACIÓN DE LAS MATRICES A Y B -> A x B
+
+            ;MULTIPLICACIÓN A x B PRIMERA FILA COLUMNAS 1, 2 Y 3
+
             multf f18, f0, f9
             multf f19, f1, f12
             multf f20, f2, f15
@@ -129,7 +146,8 @@ main:
             addf f20, f24, f25
             addf f20, f20, f26
 
-            ;Multiplicacion A por B SEGUNDA FILA
+            ;MULTIPLICACIÓN A x B SEGUNDA FILA COLUMNAS 1, 2 Y 3
+
             multf f21, f3, f9
             multf f22, f4, f12
             multf f23, f5, f15
@@ -151,7 +169,8 @@ main:
             addf f23, f27, f28
             addf f23, f23, f29
 
-            ;Multiplicacion A por B TERCERA FILA
+            ;MULTIPLICACIÓN A x B TERCERA FILA COLUMNAS 1, 2 Y 3
+
             multf f24, f6, f9
             multf f25, f7, f12
             multf f26, f8, f15
@@ -173,7 +192,8 @@ main:
             addf f26, f30, f0
             addf f26, f26, f1
 
-            ;Multiplicacion de AxB por 1/Det[A+b]
+;PASO 6: MULTIPLICACIÓN DE A x B x 1 / |A + B|
+
             multf f18, f18, f31
             multf f19, f19, f31
             multf f20, f20, f31
@@ -186,7 +206,10 @@ main:
             multf f25, f25, f31
             multf f26, f26, f31
 
-            ;Cargar Matriz C
+;PASO 7: CARGA DE LA MATRIZ C Y DEL ELEMENTO alfa
+
+            ;CARGA MATRIZ C
+
             lf  f0,C
             lf  f1,C+4
             lf  f2,C+8
@@ -197,10 +220,12 @@ main:
             lf  f7,C+28
             lf  f8,C+32
 
-            ;Cargar Alfa
+            ;CARGA ELEMENTO alfa
+
             lf  f9,Alfa
 
-            ;Multiplicar C por Alfa
+;PASO 8: MULTIPLICACIÓN DE C · alfa
+
             multf f0, f0, f9
             multf f1, f1, f9
             multf f2, f2, f9
@@ -213,7 +238,8 @@ main:
             multf f7, f7, f9
             multf f8, f8, f9
 
-            ;Sumar Matrices Resultantes
+;PASO 9: SUMA DE LAS MATRICES RESULTANTES DE LOS PASOS 6 Y 8
+
             addf f0, f0, f18
             addf f1, f1, f19
             addf f2, f2, f20
@@ -226,7 +252,8 @@ main:
             addf f7, f7, f25
             addf f8, f8, f26
 
-            ;Cargamos en M y almacenamos en el la suma de las matrices Resultantes
+;PASO 10: CARGAR EN LA MATRIZ M LOS ELEMENTOS RESULTANTES DEL PASO 9
+
             sf M, f0
             sf M+4, f1
             sf M+8, f2
@@ -236,5 +263,7 @@ main:
             sf M+24, f6
             sf M+28, f7
             sf M+32, f8
+
+;PASO 11: FINALIZA EL PROGRAMA
 
 end:		trap 0

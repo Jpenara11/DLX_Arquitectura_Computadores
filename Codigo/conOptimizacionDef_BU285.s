@@ -1,7 +1,7 @@
-; Jaime De La Peña Ramos
-; Javier Servate Hernández
+; Jaime De La Peña Ramos / DNI: 70921486C
+; Javier Servate Hernández / DNI: 70939705T
 
-            ; Declaraciones
+; Declaraciones
             .data
 
 ; Datos iniciales base
@@ -18,31 +18,33 @@ C:          .float      15.000000,  17.000000,  14.000000
             .float      17.000000,  15.000000,  17.000000
             .float      14.000000,  17.000000,  15.000000
 
-Alfa:      .float      1.235
+Alfa:       .float      1.235
 
 M:          .float      0.0,  0.0,   0.0
             .float      0.0,  0.0,   0.0
             .float      0.0,  0.0,   0.0
 
-cero:       .float       0.0
-unoFloat:   .float       1.0
+cero:       .float      0.0
+unoFloat:   .float      1.0
 
             .text
 
-            ; Codigo de las operaciones
+; Codigo de las operaciones
+
             .global main
 
 main:
 
-            ;SUMA MATRICES A + B Y CALCULO DETERMINANTE POR LAPLACE
+            ; PASO 1: SUMA DE MATRICES A + B Y CÁLCULO DEL DETERMINANTE MEDIANTE LAPLACE
+
             lf  f4,A+16
             lf  f13,B+16
             lf  f8,A+32
             addf f22, f4, f13; a22
-						multf f29, f4, f13 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
+            multf f29, f4, f13 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
             lf  f17,B+32
             lf  f5,A+20
-						lf  f14,B+20
+            lf  f14,B+20
             addf f26, f8, f17 ; a33     
             lf  f7,A+28
             addf f23, f5, f14 ; a23
@@ -53,14 +55,14 @@ main:
             addf f25, f7, f16 ; a32
             lf  f15,B+24
             multf f28, f23, f25 ; a23 x a32
-					  lf  f6,A+24
+            lf  f6,A+24
             addf f21, f3, f12 ; a21
             lf  f0,A   
             multf f30, f21, f26 ; a21 x a33
-						lf  f9,B
+            lf  f9,B
             addf f24, f6, f15 ; a31
             lf  f1,A+4
-						multf f18, f0, f9 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
+            multf f18, f0, f9 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
             lf  f10,B+4
             subf f27, f27, f28 ; a22 x a33 - a23 x a32
             multf f31, f23, f24 ; a23 x a31
@@ -88,11 +90,11 @@ main:
             lf f31, unoFloat; Cargar el 1
 
             
-						multf f19, f1, f12 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
+            multf f19, f1, f12 ; EMPIEZA LAS OPERACIONES DE MULTIPLICACION A X B
             addf f26, f26, f20 ; (PRIMER MENOR - SEGUNDO MENOR) + TERCER MENOR
 
 
-            ;Division 1 entre determinante
+            ; PASO 2: DIVISIÓN DE 1 / |A + B| Y COMPROBACIÓN SI ES 0 O NO
 
             multf f22, f1, f13
 
@@ -102,7 +104,9 @@ main:
             
             divf f31, f31, f26 ; Division 1 / det A + B
             
-            ; OPERACIONES DE MULTIPLICACION A X B
+            ; PASO 3: MULTIPLICACION DE LAS MATRICES A X B
+
+            ; MULTIPLICACIÓN A X B PRIMERA FILA
             
             multf f20, f2, f15
             addf f18, f18, f19
@@ -123,7 +127,7 @@ main:
             
             
 
-            ;Multiplicacion A por B SEGUNDA FILA
+            ; MULTIPLICACIÓN A X B SEGUNDA FILA
             
             multf f22, f4, f12
             multf f23, f5, f15
@@ -141,13 +145,12 @@ main:
             multf f27, f3, f11
             addf f23, f23, f29
             multf f28, f4, f14
-            multf f24, f6, f9 ;Multiplicacion A x B TERCERA FILA
+            multf f24, f6, f9 ; MULTIPLICACIÓN A X B TERCERA FILA
             addf f23, f27, f28
             
 
-            ;Multiplicacion A por B TERCERA FILA
+            ; MULTIPLICACIÓN A X B TERCERA FILA
 
-            
             multf f25, f7, f12
             multf f26, f8, f15
             addf f24, f24, f25
@@ -164,11 +167,11 @@ main:
             multf f1, f8, f17
             multf f0, f7, f14
             addf f26, f30, f1
-            multf f18, f18, f31 ;Multiplicacion de AxB por 1/Det[A+b]
+            multf f18, f18, f31 ; MULTIPLICACIÓN DE LAS MATRICES A X B POR 1 / |A + B| Y CARGA MATRIZ C Y alfa
             addf f26, f26, f0
             
 
-            ;Multiplicacion de AxB por 1/Det[A+b]
+            ; PASO 4: MULTIPLICACIÓN DE LAS MATRICES A X B POR 1 / |A + B| Y CARGA MATRIZ C Y alfa
             multf f19, f19, f31
             multf f20, f20, f31
             lf  f9,Alfa
@@ -185,12 +188,13 @@ main:
             multf f26, f26, f31
             lf  f5,C+20
             lf  f6,C+24
-            multf f0, f0, f9 ;Multiplicar C por Alfa
-            multf f1, f1, f9 ;Multiplicar C por Alfa
+            multf f0, f0, f9 ; MULTIPLICAR C · alfa
+            multf f1, f1, f9 ; MULTIPLICAR C · alfa
             lf  f7,C+28
             lf  f8,C+32
             
-            ;Multiplicar C por Alfa
+            ;PASO 5: MULTIPLICAR C · alfa, SUMA MATRIZ RESULTANTE PASO 4 Y GUARDAR PARÁMETRO EN ELEMENTO DE LA MATRIZ M
+
             multf f2, f2, f9
             
             addf f0, f0, f18
@@ -222,5 +226,7 @@ main:
             sf M+28, f7
             addf f8, f8, f26
             sf M+32, f8
+
+;PASO 6: FINALIZA EL PROGRAMA
 
 end:        trap 0     
